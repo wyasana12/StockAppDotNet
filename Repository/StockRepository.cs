@@ -55,7 +55,7 @@ namespace api.Repository
 
             return existingStock;
         }
-        
+
         public async Task<Stock?> DeleteAsync(int id)
         {
             var stockModel = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id);
@@ -70,6 +70,11 @@ namespace api.Repository
             await _context.SaveChangesAsync();
 
             return stockModel;
+        }
+        
+        public  Task<bool> StockExist(int id)
+        {
+            return _context.Stocks.AnyAsync(s => s.Id == id);
         }
     }
 }
